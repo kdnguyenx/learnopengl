@@ -30,3 +30,9 @@
 *.exe
 *.out
 *.app
+
+# Output dirs
+build/
+
+# Caches
+.cache/
