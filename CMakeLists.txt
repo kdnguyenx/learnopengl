@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 4.0)
+cmake_minimum_required(VERSION 3.28)
 project(learnopengl)
 
 set(CMAKE_CXX_STANDARD 17)
@@ -13,7 +13,12 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(glfw)
 
-add_executable(OpenGLWindow src/main.cpp)
+find_package(OpenGL)
 
-target_include_directories(OpenGLWindow PRIVATE ${CMAKE_CURRENT_LIST_DIR}/include)
-target_link_libraries(OpenGLWindow PRIVATE glfw)
+add_library(glad src/glad.c)
+target_include_directories(glad PUBLIC ${CMAKE_CURRENT_LIST_DIR}/include)
+
+add_executable(OpenGLWindow src/main.cpp)
+target_include_directories(OpenGLWindow PUBLIC ${CMAKE_CURRENT_LIST_DIR}/include)
+
+target_link_libraries(OpenGLWindow PRIVATE glfw glad dl)
